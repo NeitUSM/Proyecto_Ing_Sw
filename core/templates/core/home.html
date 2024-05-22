@@ -1,0 +1,12 @@
+{%extends 'core/base.html' %}
+
+{%block content%} 
+
+{% if request.user.is_authenticated%}
+    <h3>Bienvenido, {{user.username}}</h3>
+{% else %}
+    <h3>Inicio</h3>
+{% endif %}
+
+
+{% endblock%}
