@@ -12,6 +12,8 @@
 <body>
     <div class="formulario">
         <h1>Inicio de sesion</h1>
+        <h1> {{error}}</h1>
+
         <form action="{% url 'signin' %}" method="post">
             {% csrf_token %}
             <div class="username">
