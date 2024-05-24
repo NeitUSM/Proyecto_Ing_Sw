@@ -1,17 +1,29 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+    
 </head>
 <body>
-    <h2>Iniciar Sesión</h2>
-    <form method="post" action="{% url 'signin' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Ingresar</button>
-    </form>
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif %}
+    <div class="formulario">
+        <h1>Inicio de sesion</h1>
+        <form action="{% url 'signin' %}" method="post">
+            {% csrf_token %}
+            <div class="username">
+                <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
+                <label for="id_username">Nombre de usuario:</label>
+            </div>
+            <div class="clave">
+                <label>Contraseña:</label>
+                <input type="password" name="password" autocomplete="current-password" required="" id="id_password">
+            </div>
+            <input type="submit" value="Iniciar">
+        </form>
+    </div>
 </body>
 </html>
