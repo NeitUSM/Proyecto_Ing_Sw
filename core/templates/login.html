@@ -1,7 +1,9 @@
+{% load static %}
+
 <h3>Login</h3>
 
 <br>
-<form action="/base/" method="post">
+<form action="{% url 'loginview' %}" method="post">
     {% csrf_token %}
     {{ form.as_p }}
 

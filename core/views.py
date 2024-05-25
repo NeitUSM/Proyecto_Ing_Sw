@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 
@@ -18,8 +18,8 @@ def loginview(request):
         
         if user is None:
             return render(request, 'login.html',{
-                "form": AuthenticationForm(), 
-                "error":'El correo o contraseña es incorrecto'
+                'form': AuthenticationForm(), 
+                'error':'El correo o contraseña es incorrecto'
             })
         
         else:
