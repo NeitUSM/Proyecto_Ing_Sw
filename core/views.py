@@ -39,12 +39,12 @@ def loginview(request):
                 cache.set(lockout_key, True, timeout=LOCKOUT_DURATION)
                 return render(request, 'login.html',{
                     'form': AuthenticationForm(), 
-                    'error': 'El correo o contraseña es incorrecto. Su cuenta ha sido bloqueada temporalmente.'
+                    'error': 'El usuario o contraseña es incorrecto. Su cuenta ha sido bloqueada temporalmente.'
                 })
             else:
                 return render(request, 'login.html',{
                     'form': AuthenticationForm(), 
-                    'error': 'El correo o contraseña es incorrecto'
+                    'error': 'El usurio o contraseña es incorrecto'
                 })
         
         else:
