@@ -1,0 +1,13 @@
+<h3>Login</h3>
+
+<br>
+<form action="/base/" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button>
+        Ingresar
+    </button>
+{{error}}
+</form>
+
