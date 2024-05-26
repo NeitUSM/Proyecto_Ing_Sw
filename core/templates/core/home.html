@@ -1,13 +1,30 @@
 {%extends 'core/base.html' %}
 
+{% load crispy_forms_tags %}
+
 {%block content%}
-    <div class="card mx-auto" style="width: 30rem;">
-        <div class="card-body">
-            <h5 class="card-title">Hola, estás ingresando como {{user.username}}!</h5>
-            <p class="card-subtitle">¿Deseas seguir con esta cuenta o con otra credencial?</p>
-            <a href={% url 'home2' %} class="card-link">Continuar como {{user.username}}</a>
-            <a class="float-end" href={% url 'exit' %} class="card-link">Otra credencial</a>
+    {% if request.user.is_authenticated%}
+        <div class="card mx-auto mt-3" style="width: 30rem;">
+            <div class="card-body">
+                <h5 class="card-title text-center">¡Hola! Estás ingresando como {{user.username}}.</h5>
+                <p class="card-subtitle pb-4 text-center">¿Deseas seguir con esta cuenta o con otra credencial?</p>
+                <a href={% url 'home2' %} class="card-link">Continuar como {{user.username}}</a>
+                <a class="float-end" href={% url 'exit' %} class="card-link">Otra credencial</a>
+            </div>
         </div>
-    </div>
-    
+    {% else %}
+        <br>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="card mx-auto" style="width: 30rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Ingrese sus credenciales</h5>
+                    {{ form|crispy }}
+                    <a href={% url 'home' %} class="card-link">Inicio</a>
+                    <a href={% url 'register' %} class="card-link">Registrarse</a>
+                    <button class="btn btn-sm btn-primary float-end" type="submit">Iniciar sesión</button>
+                </div>
+            </div>
+        </form>
+    {% endif %}
 {% endblock%}

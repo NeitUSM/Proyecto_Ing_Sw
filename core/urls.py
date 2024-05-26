@@ -20,7 +20,7 @@ from .views import home, exit, register, home2, login_view
 
 urlpatterns = [
     path('', home, name='home'),
-    path('login/', login_view, name='login'),
+    path('login/', login_view, name='login_view'),
     path('logout/', exit, name='exit'),
     path('register/', register, name='register'),
     path('home2/', home2, name='home2'),
