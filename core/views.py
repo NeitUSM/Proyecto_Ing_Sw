@@ -9,9 +9,8 @@ def register(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Cuenta creada exitosamente!')
-          
-    
+            
+            return redirect('exito') 
     context = {'form': form}
     return render(request, 'core/register.html', context)
 
