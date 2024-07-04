@@ -19,5 +19,5 @@ from django.urls import path
 from core.views import lista_carreras
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/',  lista_carreras, name='home')
+    path('', lista_carreras, name='home')
 ]
