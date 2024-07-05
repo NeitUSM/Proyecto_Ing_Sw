@@ -1,0 +1,97 @@
+{% extends 'core/navbar.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        {% for carrera in carreras %}
+        <div class="col-sm-6 mb-3 mb-sm-0 mt-5">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <div>
+                        <h5 class="card-title">{{ carrera.NombreCarrera }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ carrera.NombreUniversidad }}</h6>
+                        <p class="card-text">{{ carrera.DescripcionCarrera }}</p>
+                        <p class="card-text"><strong>Duración: {{ carrera.SemestresCarrera }} semestres</strong></p>
+                    </div>
+                    <div class="d-flex justify-content-end mt-3">
+                        <a href="{% url 'agregar_a_comparacion' carrera.IdCarrera %}" 
+                           class="btn btn-primary comparar-btn" 
+                           data-id="{{ carrera.IdCarrera }}">
+                           Agregar a la comparación
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row mt-3" id="compare-button-container" style="display: none;">
+        <div class="col-12 d-flex justify-content-center">
+            <a href="{% url 'comparar_carreras' %}" class="btn btn-success">Comparar</a>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let selectedCount = 0;
+    const maxSelections = 2;
+    const buttons = document.querySelectorAll('.comparar-btn');
+    const compareButtonContainer = document.getElementById('compare-button-container');
+    const clearComparisonsButton = document.getElementById('clear-comparisons');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const url = this.getAttribute('href');
+            fetch(url)
+                .then(response => {
+                    if (response.ok) {
+                        if (selectedCount < maxSelections) {
+                            this.textContent = 'Agregado';
+                            this.classList.add('disabled');
+                            this.setAttribute('aria-disabled', 'true');
+                            selectedCount++;
+                            if (selectedCount === maxSelections) {
+                                buttons.forEach(btn => {
+                                    if (!btn.classList.contains('disabled')) {
+                                        btn.classList.add('disabled');
+                                        btn.setAttribute('aria-disabled', 'true');
+                                    }
+                                });
+                                compareButtonContainer.style.display = 'block';
+                            }
+                        }
+                    } else {
+                        console.error('Error al agregar a la comparación');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la solicitud fetch:', error);
+                });
+        });
+    });
+
+    clearComparisonsButton.addEventListener('click', function() {
+        fetch("{% url 'eliminar_todas_comparaciones' %}")
+            .then(response => {
+                if (response.ok) {
+                    selectedCount = 0;
+                    buttons.forEach(btn => {
+                        btn.textContent = 'Agregar a la comparación';
+                        btn.classList.remove('disabled');
+                        btn.removeAttribute('aria-disabled');
+                    });
+                    compareButtonContainer.style.display = 'none';
+                } else {
+                    console.error('Error al eliminar comparaciones');
+                }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud fetch:', error);
+            });
+    });
+});
+</script>
+{% endblock %}
