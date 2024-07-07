@@ -1,7 +1,7 @@
 {% extends 'core/navbar.html' %}
 
 {% block content %}
-<div class="container">
+<div class="container-fluid">
     {% if carreras|length != 0 %}
         <h2>Comparación de Carreras</h2>
         <table class="table">
@@ -14,6 +14,10 @@
                     <th>Región</th>
                     <th>Comuna</th>
                     <th>Régimen</th>
+                    <th>Area de Estudio</th>
+                    <th>Arancel</th>
+                    <th>Matricula</th>
+                    <th>Gratuidad</th>
                     <th>Link</th>
                 </tr>
             </thead>
@@ -27,6 +31,10 @@
                     <td>{{ carrera.RegionCarrera }}</td>
                     <td>{{ carrera.ComunaCarrera }}</td>
                     <td>{{ carrera.Regimen }}</td>
+                    <td>{{ carrera.AreaEstudio }}</td>
+                    <td>{{ carrera.Arancel }}</td>
+                    <td>{{ carrera.Matricula }}</td>
+                    <td>{{ carrera.Gratuidad }}</td>
                     <td><a href="{{ carrera.link }}">Ver más</a></td>
                     <td>
                         <a href="{% url 'eliminar_de_comparacion' carrera.IdCarrera %}" class="btn btn-danger eliminar-btn">Eliminar</a>
