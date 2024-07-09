@@ -16,7 +16,9 @@ class CarreraForm(forms.ModelForm):
             'Matricula',
             'Gratuidad',
             'Regimen', 
-            'link'
+            'link',
+            'linkred',
+            'imagen_malla'
 
         ]
 

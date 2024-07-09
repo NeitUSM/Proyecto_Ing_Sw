@@ -2,6 +2,88 @@
 
 {% block content %}
 
-soy el Inicio
+<style>
+    .container-fluid {
+        display: flex;
+        flex-direction: column;
+        height: 90vh;
+    }
 
+    .row {
+        flex: 1;
+    }
+
+    .card-title {
+        color: #007bff; /* Color del título de la tarjeta */
+    }
+
+    .card-text {
+        color: #555; /* Color del texto de la tarjeta */
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #f8f9fa; /* Color de fondo de la tarjeta */
+        border: 1px solid #ddd; /* Borde suave para las tarjetas */
+        border-radius: 10px;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .jumbotron {
+        margin-bottom: 0;
+    }
+    .btn-primary {
+        background-color: #6149E6 ; /* Color del botón principal */
+        border-color: #6149E6 ;
+    }
+</style>
+
+<div class="jumbotron text-center">
+    <h1 class="display-4">Bienvenido a Nuestra Web de Comparación de Carreras</h1>
+    <p class="lead">Encuentra y compara carreras universitarias para tomar la mejor decisión para tu futuro académico.</p>
+    <hr class="my-4">
+    <p>Explora y compara carreras de distintas universidades, revisa sus mallas curriculares, aranceles, y más.</p>
+    <a class="btn btn-primary btn-lg" href="carreras" role="button">Explorar Carreras</a>
+    <p></p>
+    <p></p>
+</div>
+
+<div class="container-fluid h-100">
+    <div class="row h-100" id="explorar">
+        <div class="col-lg-6 mb-4 d-flex align-items-stretch">
+            <div class="card text-center w-100 d-flex flex-column">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Buscar Información de Carreras</h5>
+                    <p class="card-text">Obtén detalles completos sobre diferentes carreras universitarias, incluyendo duración, aranceles, mallas curriculares y más.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 mb-4 d-flex align-items-stretch">
+            <div class="card text-center w-100 d-flex flex-column">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Comparar Carreras</h5>
+                    <p class="card-text">Compara fácilmente diferentes carreras para encontrar la que mejor se adapte a tus necesidades y aspiraciones académicas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row h-100">
+        <div class="col-lg-12 d-flex align-items-stretch">
+            <div class="card text-center w-100 d-flex flex-column">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Sobre Nosotros</h5>
+                    <p class="card-text">Nuestra plataforma está dedicada a ayudarte a tomar decisiones informadas sobre tu educación superior. Proporcionamos información detallada y comparaciones de carreras universitarias de diversas instituciones.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

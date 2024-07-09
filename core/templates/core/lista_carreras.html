@@ -2,6 +2,60 @@
 
 {% block content %}
 
+<style>
+     #boton2 {
+        background-color: #6149E6; /* Cambia este color al que desees */
+        border-color: #6149E6; /* Asegúrate de que el borde tenga el mismo color */
+        color: white; /* Color del texto */
+    }
+
+    #boton2:hover {
+        background-color: #6149E6; /* Color del botón al pasar el ratón */
+        border-color: #6149E6;
+    }
+
+    .container-fluid {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    .row {
+        flex: 1;
+    }
+
+    .card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .jumbotron {
+        margin-bottom: 0;
+        background-color: #343a40;
+        color: #fff;
+    }
+
+    .btn-primary {
+        background-color: #007BFF;
+        border-color: #007BFF;
+    }
+
+    .btn-primary:hover {
+        background-color: #007BFF;
+        border-color: #007BFF;
+    }
+</style>
+
 <h1>Lista de Carreras</h1>
 
 <button id="mostrarFiltrosBtn">Filtros</button>
@@ -30,15 +84,12 @@
                         <p class="card-text">{{ carrera.DescripcionCarrera }}</p>
                         <p class="card-text">Gratuidad: {{ carrera.Gratuidad }}</p>
                         <p class="card-text"><strong>Duración: {{ carrera.SemestresCarrera }} semestres</strong></p>
-                        {% if carrera.imagen_malla %}
-                            <img src="{{ carrera.imagen_malla.url }}" alt="Malla Curricular de {{ carrera.NombreCarrera }}" style="max-width: 100%; height: auto;">
-                        {% endif %}
                     </div>
                     <div class="d-flex justify-content-end mt-3">
                         <a href="{% url 'agregar_a_comparacion' carrera.IdCarrera %}"
-                            class="btn btn-primary comparar-btn" data-carrera-id="{{ carrera.IdCarrera }}">Agregar a la
+                            class="btn btn-primary comparar-btn  mr-2" data-carrera-id="{{ carrera.IdCarrera }}">Agregar a la
                             comparación</a>
-                        <a href="{% url 'carrera_detail' carrera.IdCarrera %}" class="btn btn-secondary ml-2">Ver Detalles</a>
+                        <a href="{% url 'carrera_detail' carrera.IdCarrera %}" class="btn btn-secondary ml-2" id="boton2">Ver Detalles</a>
                     </div>
                 </div>
             </div>

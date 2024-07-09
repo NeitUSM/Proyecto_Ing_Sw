@@ -21,8 +21,7 @@ carreras = [
         "Matricula": 150000,
         "Gratuidad": True,
         "Regimen": "Diurno",
-        "link": "http://www.uchile.cl/ingenieria-civil",
-        "imagen_malla": "mallas/MALLA1.png"
+        "link": "https://ingenieria.uchile.cl/carreras/4969/ingenieria-civil",
     },
     {
         "NombreUniversidad": "Pontificia Universidad Católica de Chile",
