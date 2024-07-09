@@ -40,25 +40,23 @@ def listar_carreras(request):
     filtro_form = FiltroGratuidadForm(request.GET or None)
     mensaje_no_resultados = None
     cargado = False
-    no_gratuidad = False
-    no_area = False
     if filtro_form.is_valid():
         gratuidad = filtro_form.cleaned_data.get('gratuidad')
         areaestudio = filtro_form.cleaned_data.get('areaestudio')
+        region = filtro_form.cleaned_data.get('region')
 
         if gratuidad:
             carreras = carreras.filter(Gratuidad=True)
-        else:
-            no_gratuidad = True
         
         if areaestudio:
-            carreras = carreras.filter(AreaEstudio=areaestudio)    
-        else:
-            no_area = True    
+            carreras = carreras.filter(AreaEstudio=areaestudio)
+
+        if region:
+            carreras = carreras.filter(RegionCarrera=region)
     else: 
         cargado = True
-
-    if no_gratuidad and no_area:
+    
+    if not carreras:
         mensaje_no_resultados = "No se encontraron carreras con lo requerido"
 
     return render(request, 'core/lista_carreras.html', {
