@@ -3,8 +3,6 @@ from .models import Carrera
 from django.http import JsonResponse
 from .forms import FiltroGratuidadForm
 
-
-
 def agregar_a_comparacion(request, carrera_id):
     # Verificar si la carrera con el ID especificado existe
     get_object_or_404(Carrera, IdCarrera=carrera_id)
@@ -34,32 +32,25 @@ def comparar_carreras(request):
 def home(request):
     return render(request,'core/home.html')
 
-
 def listar_carreras(request):
     carreras = Carrera.objects.all()
     filtro_form = FiltroGratuidadForm(request.GET or None)
     mensaje_no_resultados = None
     cargado = False
-    no_gratuidad = False
-    no_area = False
+
     if filtro_form.is_valid():
         gratuidad = filtro_form.cleaned_data.get('gratuidad')
         areaestudio = filtro_form.cleaned_data.get('areaestudio')
 
         if gratuidad:
             carreras = carreras.filter(Gratuidad=True)
-        else:
-            no_gratuidad = True
-        
         if areaestudio:
-            carreras = carreras.filter(AreaEstudio=areaestudio)    
-        else:
-            no_area = True    
-    else: 
+            carreras = carreras.filter(AreaEstudio=areaestudio)
+        
+        if not carreras.exists():
+            mensaje_no_resultados = "No se encontraron carreras con los filtros aplicados."
+    else:
         cargado = True
-
-    if no_gratuidad and no_area:
-        mensaje_no_resultados = "No se encontraron carreras con lo requerido"
 
     return render(request, 'core/lista_carreras.html', {
         'carreras': carreras,
