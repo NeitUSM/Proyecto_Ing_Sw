@@ -1,36 +1,69 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
-from django.db import IntegrityError
-from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Carrera
+from django.http import JsonResponse
+from .forms import FiltroGratuidadForm
 
-# Create your views here.
+
+
+def agregar_a_comparacion(request, carrera_id):
+    # Verificar si la carrera con el ID especificado existe
+    get_object_or_404(Carrera, IdCarrera=carrera_id)
+    comparacion = request.session.get('comparacion', [])
+    if len(comparacion) < 2 and carrera_id not in comparacion:
+        comparacion.append(carrera_id)
+        request.session['comparacion'] = comparacion
+    return JsonResponse({'success': True, 'comparacion_count': len(comparacion)})
+
+def eliminar_de_comparacion(request, carrera_id):
+    comparacion = request.session.get('comparacion', [])
+    if carrera_id in comparacion:
+        comparacion.remove(carrera_id)
+        request.session['comparacion'] = comparacion
+
+    return redirect('comparar_carreras')
+
+def eliminar_todas_comparaciones(request):
+    request.session['comparacion'] = []
+    return redirect('lista_carreras')
+
+def comparar_carreras(request):
+    comparacion_ids = request.session.get('comparacion', [])
+    carreras = Carrera.objects.filter(IdCarrera__in=comparacion_ids)
+    return render(request, 'core/comparar_carreras.html', {'carreras': carreras})
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request,'core/home.html')
 
-def signin(request):
-    if request.method == 'GET':
-        return render(request, 'signin.html', {
-            'form': AuthenticationForm()
-        })
-    else:
-        # Autenticar usuario
-        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
-        if user is None:
-            # Verificar si el usuario existe
-            if not User.objects.filter(username=request.POST['username']).exists():
-                return render(request, 'signin.html', {
-                    'form': AuthenticationForm(),
-                    'error': 'El usuario no está registrado'
-                })
-            else:
-                return render(request, 'signin.html', {
-                    'form': AuthenticationForm(),
-                    'error': 'contraseña incorrecta'
-                })
+
+def listar_carreras(request):
+    carreras = Carrera.objects.all()
+    filtro_form = FiltroGratuidadForm(request.GET or None)
+    mensaje_no_resultados = None
+    cargado = False
+    no_gratuidad = False
+    no_area = False
+    if filtro_form.is_valid():
+        gratuidad = filtro_form.cleaned_data.get('gratuidad')
+        areaestudio = filtro_form.cleaned_data.get('areaestudio')
+
+        if gratuidad:
+            carreras = carreras.filter(Gratuidad=True)
+        else:
+            no_gratuidad = True
         
-        # Iniciar sesión exitosamente
-        login(request, user)
-        return redirect('home')
+        if areaestudio:
+            carreras = carreras.filter(AreaEstudio=areaestudio)    
+        else:
+            no_area = True    
+    else: 
+        cargado = True
+
+    if no_gratuidad and no_area:
+        mensaje_no_resultados = "No se encontraron carreras con lo requerido"
+
+    return render(request, 'core/lista_carreras.html', {
+        'carreras': carreras,
+        'filtro_form': filtro_form,
+        'mensaje_no_resultados': mensaje_no_resultados,
+        'cargado': cargado,
+    })
