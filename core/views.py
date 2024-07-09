@@ -67,3 +67,7 @@ def listar_carreras(request):
         'mensaje_no_resultados': mensaje_no_resultados,
         'cargado': cargado,
     })
+
+def carrera_detail(request, carrera_id):
+    carrera = get_object_or_404(Carrera, IdCarrera=carrera_id)
+    return render(request, 'core/carrera_detail.html', {'carrera': carrera})

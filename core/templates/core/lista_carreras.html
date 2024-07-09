@@ -30,11 +30,15 @@
                         <p class="card-text">{{ carrera.DescripcionCarrera }}</p>
                         <p class="card-text">Gratuidad: {{ carrera.Gratuidad }}</p>
                         <p class="card-text"><strong>Duración: {{ carrera.SemestresCarrera }} semestres</strong></p>
+                        {% if carrera.imagen_malla %}
+                            <img src="{{ carrera.imagen_malla.url }}" alt="Malla Curricular de {{ carrera.NombreCarrera }}" style="max-width: 100%; height: auto;">
+                        {% endif %}
                     </div>
                     <div class="d-flex justify-content-end mt-3">
                         <a href="{% url 'agregar_a_comparacion' carrera.IdCarrera %}"
                             class="btn btn-primary comparar-btn" data-carrera-id="{{ carrera.IdCarrera }}">Agregar a la
                             comparación</a>
+                        <a href="{% url 'carrera_detail' carrera.IdCarrera %}" class="btn btn-secondary ml-2">Ver Detalles</a>
                     </div>
                 </div>
             </div>
@@ -86,8 +90,6 @@
         });
     });
 </script>
-
-
 
 <script>
     const mostrarFiltrosBtn = document.getElementById('mostrarFiltrosBtn');

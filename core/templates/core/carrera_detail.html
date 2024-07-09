@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ carrera.NombreCarrera }}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .card img {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card">
+                {% if carrera.imagen_malla %}
+                    <img src="{{ carrera.imagen_malla.url }}" class="card-img-top" alt="Malla Curricular de {{ carrera.NombreCarrera }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/800x400?text=No+image+available" class="card-img-top" alt="No hay malla curricular disponible">
+                {% endif %}
+                <div class="card-body">
+                    <h1 class="card-title">{{ carrera.NombreCarrera }}</h1>
+                    <p class="card-text"><strong>Área de Estudio:</strong> {{ carrera.AreaEstudio }}</p>
+                    <p class="card-text"><strong>Arancel:</strong> {{ carrera.Arancel }}</p>
+                    <p class="card-text"><strong>Gratuidad:</strong> {{ carrera.Gratuidad }}</p>
+                    <p class="card-text"><strong>Duración:</strong> {{ carrera.SemestresCarrera }} semestres</p>
+                    <p class="card-text"><strong>Descripción:</strong> {{ carrera.DescripcionCarrera }}</p>
+                    <p class="card-text"><strong>Universidad:</strong> {{ carrera.NombreUniversidad }}</p>
+                    <p class="card-text"><strong>Régimen:</strong> {{ carrera.Regimen }}</p>
+                    <p class="card-text"><strong>Comuna:</strong> {{ carrera.ComunaCarrera }}</p>
+                    <p class="card-text"><strong>Región:</strong> {{ carrera.RegionCarrera }}</p>
+                    <p class="card-text"><strong>Matrícula:</strong> {{ carrera.Matricula }}</p>
+                    <p class="card-text"><strong>Link:</strong> <a href="{{ carrera.link }}" class="btn btn-primary" target="_blank">Visitar Página</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

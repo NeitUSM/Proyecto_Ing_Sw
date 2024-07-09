@@ -9,7 +9,7 @@ from core.models import Carrera
 
 # Datos de ejemplo
 carreras = [
-    {
+   {
         "NombreUniversidad": "Universidad de Chile",
         "NombreCarrera": "Ingeniería Civil",
         "DescripcionCarrera": "Carrera de ingeniería civil.",
@@ -21,7 +21,8 @@ carreras = [
         "Matricula": 150000,
         "Gratuidad": True,
         "Regimen": "Diurno",
-        "link": "http://www.uchile.cl/ingenieria-civil"
+        "link": "http://www.uchile.cl/ingenieria-civil",
+        "imagen_malla": "mallas/MALLA1.png"
     },
     {
         "NombreUniversidad": "Pontificia Universidad Católica de Chile",
@@ -35,7 +36,8 @@ carreras = [
         "Matricula": 200000,
         "Gratuidad": True,
         "Regimen": "Diurno",
-        "link": "http://www.uc.cl/medicina"
+        "link": "http://www.uc.cl/medicina",
+        "imagen_malla": "mallas/MALLA2.png"
     },
     {
         "NombreUniversidad": "Universidad de Concepción",
@@ -49,7 +51,8 @@ carreras = [
         "Matricula": 180000,
         "Gratuidad": True,
         "Regimen": "Diurno",
-        "link": "http://www.udec.cl/derecho"
+        "link": "http://www.udec.cl/derecho",
+        "imagen_malla": "mallas/MALLA3.png"
     },
     {
         "NombreUniversidad": "Universidad de Santiago de Chile",
@@ -63,7 +66,8 @@ carreras = [
         "Matricula": 130000,
         "Gratuidad": True,
         "Regimen": "Diurno",
-        "link": "http://www.usach.cl/ingenieria-comercial"
+        "link": "http://www.usach.cl/ingenieria-comercial",
+        "imagen_malla": "mallas/MALLA4.png"
     },
     {
         "NombreUniversidad": "Universidad Técnica Federico Santa María",
@@ -77,7 +81,8 @@ carreras = [
         "Matricula": 160000,
         "Gratuidad": True,
         "Regimen": "Diurno",
-        "link": "http://www.usm.cl/ingenieria-electrica"
+        "link": "http://www.usm.cl/ingenieria-electrica",
+        "imagen_malla": "mallas/MALLA5.png"
     },
     {
         "NombreUniversidad": "Universidad de Valparaíso",
@@ -91,7 +96,8 @@ carreras = [
         "Matricula": 140000,
         "Gratuidad": True,
         "Regimen": "Diurno",
-        "link": "http://www.uv.cl/arquitectura"
+        "link": "http://www.uv.cl/arquitectura",
+        "imagen_malla": "mallas/MALLA6.png"
     },
     {
         "NombreUniversidad": "Universidad Austral de Chile",
