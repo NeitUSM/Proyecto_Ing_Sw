@@ -52,7 +52,7 @@ def listar_carreras(request):
             carreras = carreras.filter(AreaEstudio=areaestudio)
 
         if region:
-            carreras = carreras.filter(RegionCarrera=region)
+            carreras = carreras.filter(RegionCarrera__in=region)
     else: 
         cargado = True
     

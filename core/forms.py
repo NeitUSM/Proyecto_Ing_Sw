@@ -25,4 +25,5 @@ class FiltroGratuidadForm(forms.Form):
     areaestudio_choices = [("", "Seleccione una opción")] + [(area, area) for area in Carrera.objects.values_list('AreaEstudio', flat=True).distinct()]
     areaestudio = forms.ChoiceField(choices=areaestudio_choices, required=False, label='Área Estudio')
     region_choices = [("", "Selecciones una opción")] + [(region, region) for region in Carrera.objects.values_list('RegionCarrera', flat=True).distinct()]
-    region = forms.ChoiceField(choices=region_choices, required=False, label='Región')
+    region = forms.MultipleChoiceField(choices=region_choices, required=False, label='Región')
+    #region = forms.ChoiceField(choices=region_choices, required=False, label='Región')
