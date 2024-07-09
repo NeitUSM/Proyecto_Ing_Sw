@@ -22,6 +22,8 @@ carreras = [
         "Gratuidad": True,
         "Regimen": "Diurno",
         "link": "https://ingenieria.uchile.cl/carreras/4969/ingenieria-civil",
+        "linkred": "https://www.instagram.com/uchile/",
+        "imagen_malla": "mallas/MALLA1.png"
     },
     {
         "NombreUniversidad": "Pontificia Universidad Católica de Chile",

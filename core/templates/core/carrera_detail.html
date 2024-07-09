@@ -55,7 +55,13 @@
                     <h1 class="card-title">{{ carrera.NombreCarrera }}</h1>
                     <p class="card-text"><strong>Área de Estudio:</strong> {{ carrera.AreaEstudio }}</p>
                     <p class="card-text"><strong>Arancel:</strong> {{ carrera.Arancel }}</p>
-                    <p class="card-text"><strong>Gratuidad:</strong> {{ carrera.Gratuidad }}</p>
+                    <p class="card-text"><strong>Gratuidad:</strong> 
+                        {% if carrera.Gratuidad == True %}
+                                Sí
+                        {% else %}
+                                No
+                        {% endif %}
+                    </p>
                     <p class="card-text"><strong>Duración:</strong> {{ carrera.SemestresCarrera }} semestres</p>
                     <p class="card-text"><strong>Descripción:</strong> {{ carrera.DescripcionCarrera }}</p>
                     <p class="card-text"><strong>Universidad:</strong> {{ carrera.NombreUniversidad }}</p>

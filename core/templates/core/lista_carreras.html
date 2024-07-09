@@ -82,7 +82,14 @@
                         <h5 class="card-title">{{ carrera.NombreCarrera }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ carrera.NombreUniversidad }}</h6>
                         <p class="card-text">{{ carrera.DescripcionCarrera }}</p>
-                        <p class="card-text">Gratuidad: {{ carrera.Gratuidad }}</p>
+                        <p class="card-text">Gratuidad: 
+                            {% if carrera.Gratuidad %}
+                                Sí
+                            {% else %}
+                                No
+                            {% endif %}
+                        </p>
+
                         <p class="card-text"><strong>Duración: {{ carrera.SemestresCarrera }} semestres</strong></p>
                     </div>
                     <div class="d-flex justify-content-end mt-3">
