@@ -1,0 +1,72 @@
+{% extends 'core/navbar.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    {% if carreras|length != 0 %}
+        <h2>Comparación de Carreras</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre Universidad</th>
+                    <th>Nombre Carrera</th>
+                    <th>Descripción</th>
+                    <th>Semestres</th>
+                    <th>Región</th>
+                    <th>Comuna</th>
+                    <th>Régimen</th>
+                    <th>Area de Estudio</th>
+                    <th>Arancel</th>
+                    <th>Matricula</th>
+                    <th>Gratuidad</th>
+                    <th>Link</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for carrera in carreras %}
+                <tr>
+                    <td>{{ carrera.NombreUniversidad }}</td>
+                    <td>{{ carrera.NombreCarrera }}</td>
+                    <td>{{ carrera.DescripcionCarrera }}</td>
+                    <td>{{ carrera.SemestresCarrera }}</td>
+                    <td>{{ carrera.RegionCarrera }}</td>
+                    <td>{{ carrera.ComunaCarrera }}</td>
+                    <td>{{ carrera.Regimen }}</td>
+                    <td>{{ carrera.AreaEstudio }}</td>
+                    <td>{{ carrera.Arancel }}</td>
+                    <td>{{ carrera.Matricula }}</td>
+                    <td>{{ carrera.Gratuidad }}</td>
+                    <td><a href="{{ carrera.link }}">Ver más</a></td>
+                    <td>
+                        <a href="{% url 'eliminar_de_comparacion' carrera.IdCarrera %}" class="btn btn-danger eliminar-btn">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button id="clear-comparisons" class="btn btn-danger ml-2">Eliminar todas las comparaciones</button>
+    {% else %}
+        <h3>No hay carreras seleccionadas</h3>
+        <a href="{% url 'lista_carreras' %}" class="btn btn-primary">Ver Carreras</a>
+    {% endif %}
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const clearComparisonsButton = document.getElementById('clear-comparisons');
+        
+        clearComparisonsButton.addEventListener('click', function() {
+            fetch("{% url 'eliminar_todas_comparaciones' %}")
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload();  // Recarga la página para reflejar los cambios
+                    } else {
+                        console.error('Error al eliminar comparaciones');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la solicitud fetch:', error);
+                });
+        });
+    });
+</script>
+{% endblock %}
