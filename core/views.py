@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Carrera
 from django.http import JsonResponse
+from .forms import FiltroGratuidadForm
 
-def listar_carreras(request):
-    carreras = Carrera.objects.all()
-    return render(request, 'core/lista_carreras.html', {'carreras': carreras})
+
 
 def agregar_a_comparacion(request, carrera_id):
     # Verificar si la carrera con el ID especificado existe
@@ -31,3 +30,40 @@ def comparar_carreras(request):
     comparacion_ids = request.session.get('comparacion', [])
     carreras = Carrera.objects.filter(IdCarrera__in=comparacion_ids)
     return render(request, 'core/comparar_carreras.html', {'carreras': carreras})
+
+def home(request):
+    return render(request,'core/home.html')
+
+
+def listar_carreras(request):
+    carreras = Carrera.objects.all()
+    filtro_form = FiltroGratuidadForm(request.GET or None)
+    mensaje_no_resultados = None
+    cargado = False
+    no_gratuidad = False
+    no_area = False
+    if filtro_form.is_valid():
+        gratuidad = filtro_form.cleaned_data.get('gratuidad')
+        areaestudio = filtro_form.cleaned_data.get('areaestudio')
+
+        if gratuidad:
+            carreras = carreras.filter(Gratuidad=True)
+        else:
+            no_gratuidad = True
+        
+        if areaestudio:
+            carreras = carreras.filter(AreaEstudio=areaestudio)    
+        else:
+            no_area = True    
+    else: 
+        cargado = True
+
+    if no_gratuidad and no_area:
+        mensaje_no_resultados = "No se encontraron carreras con lo requerido"
+
+    return render(request, 'core/lista_carreras.html', {
+        'carreras': carreras,
+        'filtro_form': filtro_form,
+        'mensaje_no_resultados': mensaje_no_resultados,
+        'cargado': cargado,
+    })
