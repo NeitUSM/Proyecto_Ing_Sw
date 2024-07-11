@@ -41,12 +41,15 @@ def listar_carreras(request):
     if filtro_form.is_valid():
         gratuidad = filtro_form.cleaned_data.get('gratuidad')
         areaestudio = filtro_form.cleaned_data.get('areaestudio')
+        region = filtro_form.cleaned_data.get('region')
 
         if gratuidad:
             carreras = carreras.filter(Gratuidad=True)
         if areaestudio:
             carreras = carreras.filter(AreaEstudio=areaestudio)
-        
+        if region:
+            carreras = carreras.filter(RegionCarrera__in=region)
+
         if not carreras.exists():
             mensaje_no_resultados = "No se encontraron carreras con los filtros aplicados."
     else:
